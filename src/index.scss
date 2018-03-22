@@ -12,7 +12,7 @@ $animation-speed: 30s; // if you want change speed edit this
 }
 
 @include keyframes(revolution) {
-  0 {
+  0% {
     transform: rotate(0deg);
   }
   100% {
@@ -60,7 +60,7 @@ $animation-speed: 30s; // if you want change speed edit this
 
 .circular {
   @include on-circle($item-count: 8, $circle-size: 20em, $item-size: 6em);
-  @include animation(revolution $animation-speed linear infinite)
+  @include animation(revolution $animation-speed linear infinite);
   margin: 5em auto 0;
   border: solid 2px #eee;
 
