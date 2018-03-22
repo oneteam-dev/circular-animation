@@ -1,0 +1,72 @@
+$animation-speed: 30s; // if you want change speed edit this
+
+@mixin keyframes($animation-name) {
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+@mixin animation($name) {
+  animation: $name;
+  animation-fill-mode: both;
+}
+
+@include keyframes(revolution) {
+  0 {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@mixin on-circle($item-count, $circle-size, $item-size) {
+  position: relative;
+  width:  $circle-size;
+  height: $circle-size;
+  border-radius: 50%;
+  padding: 0;
+  list-style: none;
+
+  > * {
+    display: block;
+    position: absolute;
+    top:  50%;
+    left: 50%;
+    margin: -($item-size / 2);
+    width:  $item-size;
+    height: $item-size;
+
+    $angle: (360 / $item-count);
+    $rot: 0;
+
+    @for $i from 1 through $item-count {
+      @include keyframes(rotation#{$i}) {
+        0% {
+          transform: rotate($rot * 1deg) translate($circle-size / 2) rotate($rot * -1deg);
+        }
+        100% {
+          transform: rotate($rot * 1deg) translate($circle-size / 2) rotate($rot * -1deg + -360deg);
+        }
+      }
+      &:nth-of-type(#{$i}) {
+        transform: rotate($rot * 1deg) translate($circle-size / 2) rotate($rot * -1deg);
+        @include animation(rotation#{$i} $animation-speed linear infinite)
+      }
+      $rot: $rot + $angle;
+    }
+  }
+}
+
+.circular {
+  @include on-circle($item-count: 8, $circle-size: 20em, $item-size: 6em);
+  @include animation(revolution $animation-speed linear infinite)
+  margin: 5em auto 0;
+  border: solid 2px #eee;
+
+  img {
+    display: block;
+    max-width: 100%;
+    transition: .15s;
+  }
+}
