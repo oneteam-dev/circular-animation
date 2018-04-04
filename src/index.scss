@@ -59,9 +59,9 @@ $animation-speed: 30s; // if you want change speed edit this
 }
 
 .circular {
-  @include on-circle($item-count: 8, $circle-size: 20em, $item-size: 6em);
+  @include on-circle($item-count: 8, $circle-size: 32em, $item-size: 8em);
   @include animation(revolution $animation-speed linear infinite);
-  margin: 5em auto 0;
+  margin: 0 auto;
   border: solid 2px #eee;
 
   img {
